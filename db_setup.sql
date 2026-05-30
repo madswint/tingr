@@ -61,3 +61,25 @@ CREATE TABLE IF NOT EXISTS citat (
     citat TEXT,
     PRIMARY KEY (citatid)
 );
+
+CREATE OR REPLACE VIEW politikerscore AS 
+    with politikermaerkesag as (
+        select pol.politikerid, pol.navn, pol.partiid, avg(sag.fordelingsscore) as gnsfordelingscore, avg(sag.vaerdiscore) as gnsvaerdiscore
+        from politiker pol
+        join maerkesagpolitiker sagpol on sagpol.politikerid = pol.politikerid
+        join maerkesag sag on sag.maerkesagid = sagpol.maerkesagid
+        group by  pol.politikerid, pol.navn, pol.partiid
+    ),
+
+    partimaerkesag as (
+        select par.partiid, par.parti, avg(sag.fordelingsscore) as gnsfordelingscore, avg(sag.vaerdiscore) as gnsvaerdiscore
+        from parti par
+        join maerkesagparti sagpar on sagpar.partiid = par.partiid
+        join maerkesag sag on sag.maerkesagid = sagpar.maerkesagid
+        group by par.partiid, par.parti
+    )
+
+
+    select polsag.politikerid, polsag.navn, parsag.partiid, parsag.parti, (polsag.gnsfordelingscore * 0.7 + parsag.gnsfordelingscore * 0.3) as samletfordelingsscore, (polsag.gnsvaerdiscore * 0.7 + parsag.gnsvaerdiscore * 0.3) as samletvaerdiscore
+    from politikermaerkesag polsag
+    join partimaerkesag parsag on polsag.partiid = parsag.partiid;
