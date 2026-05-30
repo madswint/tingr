@@ -1,0 +1,55 @@
+from flask import Flask, render_template, request, redirect
+from database import init_db
+import main
+
+init_db()
+main.load_all_politicians()
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def starter():
+    politicians = main.get_random_politicians(3)
+    return render_template("starter.html", politicians=politicians)
+
+
+@app.route("/choose", methods=["POST"])
+def choose():
+    politician_id = request.form.get("politician_id", type=int)
+    if politician_id is not None:
+        politician = next((p for p in main.politicians if p.id == politician_id), None)
+        if politician:
+            main.reset()
+            main.swiped.append(politician)
+            main.bag_add(politician)
+    return redirect("/swipe")
+
+
+@app.route("/swipe")
+def swipe_page():
+    politician = main.get_next_politician()
+    return render_template("index.html", politician=politician, bag=main.bag)
+
+
+@app.route("/swipe", methods=["POST"])
+def swipe():
+    politician_id = request.form.get("politician_id", type=int)
+    direction = request.form.get("direction")
+    if politician_id is not None:
+        politician = next((p for p in main.politicians if p.id == politician_id), None)
+        if politician:
+            main.swiped.append(politician)
+            if direction == "right":
+                main.bag_add(politician)
+    return redirect("/swipe")
+
+
+@app.route("/reset")
+def reset():
+    main.reset()
+    return redirect("/")
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)

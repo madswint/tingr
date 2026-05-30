@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <h1>Tingr</h1>
+
+    <div class="overlay-backdrop"></div>
+
+    <div class="overlay">
+        <p class="overlay-title">Vælg din første politiker</p>
+        <div class="starter-grid">
+            {% for p in politicians %}
+            <form method="POST" action="/choose">
+                <input type="hidden" name="politician_id" value="{{ p.id }}">
+                <button class="starter-card" type="submit">
+                    {% if p.photo_urls %}
+                    <img class="starter-photo" src="{{ p.photo_urls[0] }}" alt="{{ p.name }}">
+                    {% else %}
+                    <div class="starter-photo-placeholder">✗</div>
+                    {% endif %}
+                    <div class="starter-name">{{ p.name }}</div>
+                    <div class="starter-party">{{ p.party }}</div>
+                </button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

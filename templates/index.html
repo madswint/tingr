@@ -1,11 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tingr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 <body>
-    
+    <h1>Tingr</h1>
+    <p class="subtitle">Byg dit hold!</p>
+
+    <div class="bag">
+        <div class="bag-title">Taske</div>
+        <div class="bag-slots">
+        {% for i in range(6) %}
+        <div class="bag-slot {% if i < bag|length %}bag-slot--filled{% endif %}">
+            {% if i < bag|length %}
+            {% set p = bag[i] %}
+            {% if p.photo_urls %}
+            <img class="bag-photo" src="{{ p.photo_urls[0] }}" alt="{{ p.name }}">
+            {% else %}
+            <div class="bag-photo-empty">✗</div>
+            {% endif %}
+            <div class="bag-name">{{ p.name.split()[0] }}</div>
+            {% else %}
+            <div class="bag-photo-empty"></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+
+    {% if politician %}
+    <div class="card">
+
+        {% if politician.photo_urls %}
+        <div class="card-photos" id="card-photos" data-photos='{{ politician.photo_urls | tojson }}'>
+            <img class="card-photo" id="card-photo-img" src="{{ politician.photo_urls[0] }}" alt="{{ politician.name }}">
+            {% if politician.photo_urls|length > 1 %}
+            <button class="photo-arrow photo-arrow--left" onclick="changePhoto(-1)">&#8249;</button>
+            <button class="photo-arrow photo-arrow--right" onclick="changePhoto(1)">&#8250;</button>
+            <div class="photo-dots" id="photo-dots">
+                {% for url in politician.photo_urls %}
+                <span class="photo-dot{% if loop.first %} photo-dot--active{% endif %}"></span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="card-photo-placeholder">X</div>
+        {% endif %}
+
+        <div class="card-body">
+            <h2>{{ politician.name }}</h2>
+            <div class="party">{{ politician.party }}</div>
+            <div class="meta">
+                {% if politician.born %}Født: {{ politician.born }}<br>{% endif %}
+                {% if politician.position %}{{ politician.position }}<br>{% endif %}
+                {% if politician.education %}{{ politician.education }}{% endif %}
+            </div>
+
+            {% if politician.quotes %}
+            <div class="section">
+                <h3>Citater</h3>
+                <ul>
+                    {% for quote in politician.quotes %}
+                    <li>"{{ quote }}"</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if politician.scandals %}
+            <div class="section">
+                <h3>Skandaler</h3>
+                <ul>
+                    {% for scandal in politician.scandals %}
+                    <li>{{ scandal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card-bottom">
+            <div class="card-bottom-col">
+                <h3>Mærkesager</h3>
+                {% if politician.issues %}
+                <ul>
+                    {% for issue in politician.issues %}
+                    <li>{{ issue }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <span class="placeholder">Ingen registreret</span>
+                {% endif %}
+            </div>
+            <div class="card-bottom-col">
+                <h3>Faktisk indført politik</h3>
+                <span class="placeholder">Kommer snart</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <form method="POST" action="/swipe">
+                <input type="hidden" name="politician_id" value="{{ politician.id }}">
+                <button class="btn btn-nope" name="direction" value="left">✗</button>
+            </form>
+            <form method="POST" action="/swipe">
+                <input type="hidden" name="politician_id" value="{{ politician.id }}">
+                <button class="btn btn-like" name="direction" value="right">♥</button>
+            </form>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="done">
+        <h2>Du har swipet alle politiker!</h2>
+        <a href="/reset">Start forfra</a>
+    </div>
+    {% endif %}
+    <script>
+        const container = document.getElementById('card-photos');
+        if (container) {
+            const photos = JSON.parse(container.dataset.photos);
+            let idx = 0;
+            function changePhoto(dir) {
+                idx = (idx + dir + photos.length) % photos.length;
+                document.getElementById('card-photo-img').src = photos[idx];
+                document.querySelectorAll('#photo-dots .photo-dot').forEach((d, i) =>
+                    d.classList.toggle('photo-dot--active', i === idx));
+            }
+        }
+    </script>
 </body>
 </html>
