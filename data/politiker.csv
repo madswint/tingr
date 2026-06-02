@@ -1,57 +1,20 @@
-﻿politikerid;navn;fodselsdato;partiid;stilling;uddannelse
-1;Lars Løkke Rasmussen;15/05/1964;1;"Fungerende udenrigsminister; partileder";Cand.jur
-2;Pelle Dragsted;13/04/1975;6;Politisk ordfører;Kandidat i historie og spansk, master i retorik og formidling
-3;Mette Frederiksen;19/11/1977;4;"Fungerende statsminister; formand";Master i afrikastudier
-4;Alex Vanopslagh;17/10/1991;8;Partileder;Cand.scient.pol.
-5;Pia Olsen Dyhr;30/11/1971;3;Formand;Cand.scient.pol.
-6;Lars Boje Mathiesen;21/05/1975;7;Formand;Næsten færdiggjort diplomuddannelse i offentlig ledelse
-7;Morten Messerschmidt;13/11/1980;5;Formand;Cand.jur
-8;Alex Jones;11/02/1974;14;Podcaster;4chan
-9;Franciska Rosenkilde;19/03/1976;9;Politisk leder;Cand.scient.geo
-10;Mattias Tesfaye;31/03/1981;4;Fungerende børne- og undervisningsminister;Murerlærling
-11;Ida Auken;22/04/1978;4;MF;Teolog
-12;Sikandar Siddique;04/10/1986;12;Fhv folketingsmedlem;Masters of Arts in Communication & Global studies, RUC
-13;Troels Lund;30/03/1976;2;Fungerende forsvarsminister;Tørring Amtsgymnasium
-14;Amanda Heitmann;27/02/1998;2;MF;Cand.scient.adm
-15;Magnus Heunicke;28/01/1975;4;Fungerende miljø- og ligestillingsminister;Journalist
-16;Inger Støjberg;16/03/1973;13;Formand;Master of Business Administration
-17;Mona Juul;20/09/1967;11;Formand;Strategisk planning, Den Danske Reklameskole
-18;Pernille Vermund;03/12/1975;8;MF;Cand.arch., Kunstakademiets Arkitektskole
-19;Martin Lidegaard;12/12/1966;10;Politisk leder;Cand.comm, RUC
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
-;;;;;
+﻿politikerid;navn;fodselsdato;partiid;stilling;uddannelse;deltagelsesprocent
+1;Lars Løkke Rasmussen;15/05/1964;1;"Fungerende udenrigsminister; partileder";Cand.jur;6.93156301864688
+2;Pelle Dragsted;13/04/1975;6;Politisk ordfører;Kandidat i historie og spansk, master i retorik og formidling;47.04184704184704
+3;Mette Frederiksen;19/11/1977;4;"Fungerende statsminister; formand";Master i afrikastudier;19.434737923946557
+4;Alex Vanopslagh;17/10/1991;8;Partileder;Cand.scient.pol.;15.454240697284613
+5;Pia Olsen Dyhr;30/11/1971;3;Formand;Cand.scient.pol.;26.413816457839484
+6;Lars Boje Mathiesen;21/05/1975;7;Formand;Næsten færdiggjort diplomuddannelse i offentlig ledelse;56.96643445218492
+7;Morten Messerschmidt;13/11/1980;5;Formand;Cand.jur;35.80557707203718
+8;Alex Jones;11/02/1974;14;Podcaster;4chan;
+9;Franciska Rosenkilde;19/03/1976;9;Politisk leder;Cand.scient.geo;13.333333333333334
+10;Mattias Tesfaye;31/03/1981;4;Fungerende børne- og undervisningsminister;Murerlærling;71.43961352657004
+11;Ida Auken;22/04/1978;4;MF;Teolog;60.24269311064718
+12;Sikandar Siddique;04/10/1986;12;Fhv folketingsmedlem;Masters of Arts in Communication & Global studies, RUC;34.6563981042654
+13;Troels Lund;30/03/1976;2;Fungerende forsvarsminister;Tørring Amtsgymnasium;47.41439205955335
+14;Amanda Heitmann;27/02/1998;2;MF;Cand.scient.adm;
+15;Magnus Heunicke;28/01/1975;4;Fungerende miljø- og ligestillingsminister;Journalist;65.28045440714068
+16;Inger Støjberg;16/03/1973;13;Formand;Master of Business Administration;57.72857728577285
+17;Mona Juul;20/09/1967;11;Formand;Strategisk planning, Den Danske Reklameskole;49.93666877770741
+18;Pernille Vermund;03/12/1975;8;MF;Cand.arch., Kunstakademiets Arkitektskole;47.02343255224826
+19;Martin Lidegaard;12/12/1966;10;Politisk leder;Cand.comm, RUC;35.495151804164685

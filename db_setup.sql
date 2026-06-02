@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS politiker (
     partiid integer REFERENCES parti(partiid),
     stilling char(60),
     uddannelse char(100),
+    deltagelsesprocent FLOAT,
     PRIMARY KEY (politikerid)
 );
 
