@@ -4,7 +4,7 @@ import csv
 
 # Try to get from system enviroment variable
 # Set your Postgres user and password as second arguments of these two next function calls
-user = os.environ.get('PGUSER', 'tingr')
+user = os.environ.get('PGUSER', 'postgres')
 password = os.environ.get('PGPASSWORD', '123')
 host = os.environ.get('HOST', '127.0.0.1')
 
