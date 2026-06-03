@@ -1,6 +1,8 @@
 import pandas as pd
 import requests
 
+# when new politicians are added to the project, the dictionary below must be updated with aktoer_id from  matched with politikerid, 
+# and this script must be run to populate the politiker table with an 'deltagelsesprocent' attribute.
 
 AKTOER_MAP = {
     1: 145,
@@ -20,7 +22,9 @@ AKTOER_MAP = {
     16: 182,
     17: 18713,
     18: 18723,
-    19: 141
+    19: 141,
+    20: 15776,
+    21: 57,
     
 }
 
