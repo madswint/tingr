@@ -3,10 +3,15 @@
 ![Tingr screenshot](static/readme_ss.png)
 
 ## SETUP: (python3 or py)
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
 
+### SETUP Python environment (if wanted)
+1. python3 -m venv .venv
+
+2. source .venv/bin/activate
+
+3. pip install -r requirements.txt
+
+### SETUP Database
 These are the steps we use on our machines.
 
 1. Create *'tingr'* database on system (linux)
@@ -27,9 +32,12 @@ sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
 
 ## USE:
 
+### Run server
 *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3.
 
 Server opens on http://127.0.0.1:8000/
+
+### How to play
 
 Pick your starting politician. 
 
