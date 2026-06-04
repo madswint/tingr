@@ -7,6 +7,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
+These are the steps we use on our machines.
+
 1. Create *'tingr'* database on system (linux)
 
 sudo -u postgres psql -c "CREATE DATABASE tingr;"
@@ -23,10 +25,13 @@ sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
 
 4. Update *database.py* with your credentials
 
-5. *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3
+5. *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3.
+   NOTICE: Make sure step 4. is done corrrectly before running this, as this step also calls functions in database.py to create and populate tables. 
 
 
 ## USE:
+
+Server is opened on http://127.0.0.1:8000/.
 
 Pick your starting politician. 
 
