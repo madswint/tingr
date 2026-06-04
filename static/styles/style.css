@@ -15,6 +15,39 @@ body {
 h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: relative; z-index: 1; }
 .subtitle { color: #aaa; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 2rem; position: relative; z-index: 1; }
 
+.card-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.news-panel {
+    position: absolute;
+    right: calc(100% - (50% - 260px - 1rem));
+    top: 50%;
+    transform: translateY(-50%);
+    width: 220px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    padding: 1.25rem;
+}
+
+.news-panel h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaa;
+    margin-bottom: 0.75rem;
+}
+
+.news-list { list-style: none; padding: 0; }
+.news-list li { margin-bottom: 0.75rem; font-size: 0.82rem; line-height: 1.4; }
+.news-list a { color: #333; text-decoration: none; }
+.news-list a:hover { text-decoration: underline; }
+.news-source { display: block; color: #aaa; font-size: 0.72rem; margin-top: 0.2rem; }
+
 .card {
     position: relative;
     z-index: 1;
@@ -167,7 +200,41 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 
 .card h2 { font-size: 1.6rem; margin-bottom: 0.25rem; }
 .card .party { color: #666; margin-bottom: 1rem; font-size: 0.95rem; }
-.card .meta { font-size: 0.85rem; color: #888; margin-bottom: 1.5rem; line-height: 1.6; }
+.card .meta { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+.name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.attendance-inline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    flex-shrink: 0;
+}
+
+.attendance-bar-h {
+    width: 80px;
+    height: 6px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.attendance-fill-h {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.attendance-pct {
+    font-size: 0.7rem;
+    color: #888;
+}
 
 .section { margin-bottom: 1.25rem; }
 .section h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 0.5rem; }
@@ -247,6 +314,7 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 .btn:active { transform: scale(0.95); }
 .btn-nope { background: #ffe0e0; color: #c0392b; }
 .btn-like { background: #e0ffe0; color: #27ae60; }
+.btn-like:disabled { background: #eee; color: #bbb; cursor: not-allowed; }
 
 /* Bag */
 .bag {
@@ -280,8 +348,8 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 }
 
 .bag-slot {
-    width: 52px;
-    height: 64px;
+    width: 70px;
+    height: 84px;
     border-radius: 10px;
     border: 2px dashed #e0e0e0;
     overflow: hidden;
@@ -290,22 +358,41 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
     align-items: center;
     justify-content: center;
     transition: border-color 0.2s;
+    position: relative;
 }
 
 .bag-slot--filled {
     border: 2px solid #d0d0d0;
+    cursor: pointer;
+}
+
+.bag-slot--filled:hover .bag-remove {
+    opacity: 1;
+}
+
+.bag-remove {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.15s;
 }
 
 .bag-photo {
     width: 100%;
-    height: 44px;
+    height: 58px;
     object-fit: cover;
     object-position: top;
 }
 
 .bag-photo-empty {
     width: 100%;
-    height: 44px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -321,7 +408,7 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 48px;
+    max-width: 66px;
 }
 
 /* Starter overlay */

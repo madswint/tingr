@@ -23,24 +23,45 @@
         <div class="bag-title">Taske</div>
         <div class="bag-slots">
         {% for i in range(6) %}
-        <div class="bag-slot {% if i < bag|length %}bag-slot--filled{% endif %}">
-            {% if i < bag|length %}
-            {% set p = bag[i] %}
-            {% if p.photo_urls %}
-            <img class="bag-photo" src="{{ p.photo_urls[0] }}" alt="{{ p.name }}">
-            {% else %}
-            <div class="bag-photo-empty">✗</div>
-            {% endif %}
-            <div class="bag-name">{{ p.name.split()[0] }}</div>
-            {% else %}
+        {% if i < bag|length %}
+        {% set p = bag[i] %}
+        <form method="POST" action="/bag/remove" style="display:contents">
+            <input type="hidden" name="politician_id" value="{{ p.id }}">
+            <button type="submit" class="bag-slot bag-slot--filled">
+                {% if p.photo_urls %}
+                <img class="bag-photo" src="{{ p.photo_urls[0] }}" alt="{{ p.name }}">
+                {% else %}
+                <div class="bag-photo-empty">✗</div>
+                {% endif %}
+                <div class="bag-name">{{ p.name.split()[0] }}</div>
+                <div class="bag-remove">✕</div>
+            </button>
+        </form>
+        {% else %}
+        <div class="bag-slot">
             <div class="bag-photo-empty"></div>
-            {% endif %}
         </div>
+        {% endif %}
         {% endfor %}
         </div>
     </div>
 
     {% if politician %}
+    <div class="card-wrapper">
+    <div class="news-panel">
+        <h3>Nyheder</h3>
+        {% if news %}
+        <ul class="news-list">
+            {% for article in news %}
+            <li><a href="{{ article.url }}" target="_blank" rel="noopener">{{ article.title }}</a>
+            {% if article.source %}<span class="news-source">{{ article.source }}</span>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <span class="placeholder">Ingen artikler fundet</span>
+        {% endif %}
+    </div>
     <div class="card">
 
         {% if politician.photo_urls %}
@@ -61,13 +82,24 @@
         {% endif %}
 
         <div class="card-body">
-            <h2>{{ politician.name }}</h2>
+            <div class="name-row">
+                <h2>{{ politician.name }}</h2>
+                <div class="attendance-inline">
+                    {% if politician.deltagelsesprocent is not none %}
+                    <div class="attendance-bar-h">
+                        <div class="attendance-fill-h" id="attendance-fill" data-pct="{{ "%.1f"|format(politician.deltagelsesprocent) }}"></div>
+                    </div>
+                    <span class="attendance-pct">{{ "%.0f"|format(politician.deltagelsesprocent) }}% fremmøde</span>
+                    {% else %}
+                    <span class="attendance-pct">Ingen data for fremmøde</span>
+                    {% endif %}
+                </div>
+            </div>
             <div class="party">{{ politician.party }}</div>
             <div class="meta">
                 {% if politician.born %}Født: {{ politician.born }}<br>{% endif %}
                 {% if politician.position %}{{ politician.position }}<br>{% endif %}
-                {% if politician.education %}{{ politician.education }}<br>{% endif %}
-                 {% if politician.deltagelsesprocent is not none %} Fremmøde ved afsteminger: {{ "%.1f"|format(politician.deltagelsesprocent) }}% {% endif %}
+                {% if politician.education %}{{ politician.education }}{% endif %}
             </div>
 
             {% if politician.quotes %}
@@ -92,18 +124,6 @@
             </div>
             {% endif %}
 
-            {% if news %}
-            <div class="section">
-                <h3>Nyheder</h3>
-                <ul class="news-list">
-                    {% for article in news %}
-                    <li><a href="{{ article.url }}" target="_blank" rel="noopener">{{ article.title }}</a>
-                    {% if article.source %}<span class="news-source"> — {{ article.source }}</span>{% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
         </div>
 
         <div class="card-bottom">
@@ -132,9 +152,10 @@
             </form>
             <form method="POST" action="/swipe">
                 <input type="hidden" name="politician_id" value="{{ politician.id }}">
-                <button class="btn btn-like" name="direction" value="right">♥</button>
+                <button class="btn btn-like" name="direction" value="right" {% if bag|length >= 6 %}disabled{% endif %}>♥</button>
             </form>
         </div>
+    </div>
     </div>
 
     {% else %}
@@ -147,6 +168,16 @@
         const color = document.body.dataset.partyColor || '#888888';
         document.body.style.setProperty('--party-color', color);
         document.body.style.backgroundColor = color + '18';
+
+        const fill = document.getElementById('attendance-fill');
+        if (fill) {
+            const pct = parseFloat(fill.dataset.pct);
+            fill.style.width = pct + '%';
+            fill.style.background = pct >= 90 ? '#2ecc71'
+                                  : pct >= 75 ? '#27ae60'
+                                  : pct >= 60 ? '#e67e22'
+                                  : '#c0392b';
+        }
 
         const container = document.getElementById('card-photos');
         if (container) {

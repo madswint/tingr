@@ -46,6 +46,19 @@ def swipe():
     return redirect("/swipe")
 
 
+@app.route("/bag/remove", methods=["POST"])
+def bag_remove():
+    politician_id = request.form.get("politician_id", type=int)
+    if politician_id is not None:
+        politician = next((p for p in main.bag if p.id == politician_id), None)
+        if politician:
+            main.bag.remove(politician)
+                                        # originally placed politician bag into pool if removed from bag but removed this - reconsider?
+            if main.bag:
+                main.bag_update_score()
+    return redirect("/swipe")
+
+
 @app.route("/reset")
 def reset():
     main.reset()

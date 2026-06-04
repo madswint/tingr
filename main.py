@@ -63,6 +63,13 @@ def bag_add(politician: Politician):
     else:
         print("GIV MULIGHED FOR ERSTATTELSE AF POLITIKER VED BRUG AF REGEX?")
 
+def bag_remove(politician: Politician):
+    if politician not in politicians:
+        print("Pretend this is a handled exception..")
+    else:
+        bag.remove(politician)
+        bag_update_score()
+    
 
 def bag_update_score():
     global bag_politics_score
