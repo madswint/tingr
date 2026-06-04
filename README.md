@@ -38,3 +38,5 @@ Each like adds a politician to your bag (max of 6, can be removed and replaced).
 
 At 6/6 politicians you have the option of seeing your most related party and other stats. Same option is given when no more politicians are left to swipe.
 
+
+![ER diagram](ER_diagram_tingr.jpg)
