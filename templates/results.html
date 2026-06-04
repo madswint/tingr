@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingr – Dit Hold</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        body { background-color: {{ party_color }}18; }
+    </style>
+</head>
+<body>
+    <h1>Tingr</h1>
+    <p class="subtitle">Dit hold</p>
+
+    <div class="results-wrap">
+
+        <div class="axis-chart">
+            <div class="axis-label axis-label--top">Fordelingspolitik</div>
+            <div class="axis-label axis-label--right">Værdipolitik</div>
+            <div class="axis-line axis-line--h"></div>
+            <div class="axis-line axis-line--v"></div>
+            <div class="axis-dot" id="axis-dot"
+                data-x="{{ axis_fordeling }}"
+                data-y="{{ axis_vaerdi }}"
+                style="background: {{ party_color }}">
+            </div>
+        </div>
+
+        <div class="results-top-party" style="--party-color: {{ party_color }}">
+            {% if party_logo %}
+            <img src="{{ party_logo }}" alt="{{ top_party }}" class="results-party-logo">
+            {% endif %}
+            <div class="results-party-name">{{ top_party or "Ingen parti" }}</div>
+            <div class="results-party-sub">Dit holds politiske score matcher dette parti bedst</div>
+        </div>
+
+        <div class="results-bag">
+            {% for p in bag %}
+            <div class="results-politician">
+                {% if p.photo_urls %}
+                <img src="{{ p.photo_urls[0] }}" alt="{{ p.name }}" class="results-photo">
+                {% else %}
+                <div class="results-photo-empty">?</div>
+                {% endif %}
+                <div class="results-pol-name">{{ p.name }}</div>
+                <div class="results-pol-party" style="color: {{ p.party_color }}">{{ p.party }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="results-stats">
+            <div class="stat-card">
+                <div class="stat-value">{{ like_rate }}%</div>
+                <div class="stat-label">Swipede til højre</div>
+                <div class="stat-sub">{{ swiped_right }} ud af {{ total_swiped }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ swiped_left }}</div>
+                <div class="stat-label">Afviste politiker</div>
+                <div class="stat-sub">Du er kræsen</div>
+            </div>
+            {% if avg_attendance is not none %}
+            <div class="stat-card">
+                <div class="stat-value">{{ avg_attendance }}%</div>
+                <div class="stat-label">Gns. fremmøde</div>
+                <div class="stat-sub">
+                    {% if avg_attendance >= 90 %}Dit hold møder op!
+                    {% elif avg_attendance >= 75 %}Nogenlunde flittige
+                    {% else %}Skulkere i dit hold..
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% if scandals_total > 0 %}
+            <div class="stat-card">
+                <div class="stat-value">{{ scandals_total }}</div>
+                <div class="stat-label">Skandaler i holdet</div>
+                <div class="stat-sub">
+                    {% if most_scandalous %}Flest: {{ most_scandalous.name.split()[0] }}{% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+
+        <div class="results-actions">
+            <a href="/results" class="btn-results">Opdater</a>
+            <a href="/reset" class="btn-reset">Start forfra</a>
+        </div>
+
+    </div>
+    <script>
+        const dot = document.getElementById('axis-dot');
+        if (dot) {
+            const x = parseFloat(dot.dataset.x); // -1 to +1, fordeling (left/right)
+            const y = parseFloat(dot.dataset.y); // -1 to +1, vaerdi (progressive/conservative)
+            // map -1..+1 to 5%..95% within the chart
+            dot.style.left = (50 + x * 45) + '%';
+            dot.style.top  = (50 - y * 45) + '%'; // invert y: positive = up (conservative)
+        }
+    </script>
+</body>
+</html>

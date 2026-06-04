@@ -1,0 +1,50 @@
+﻿tiltagid;politikerid;periode;tiltag;beskrivelse;rolle
+1;1;2007;Kommunalreformen;Sammenlægning af 271 kommuner til 98 kommuner og oprettelse af fem regioner.;Indenrigs- og sundhedsminister / central arkitekt
+2;1;2009;Forårspakke 2.0;Skattereform med lavere skat på arbejde og ændret skatte-/afgiftsstruktur.;Statsminister / regeringsleder
+3;1;2011;Tilbagetrækningsreformen;Reform af efterløn og pensionsalder med fokus på flere år på arbejdsmarkedet.;Statsminister / regeringsleder
+4;1;2023;Store bededag som almindelig arbejdsdag;Afskaffelse af store bededag som helligdag fra 2024.;Regeringspartileder / udenrigsminister
+5;2;NULL;Ingen større indført politik med personligt hovedansvar fundet;Har primært haft rolle som oppositionspolitiker og ordfører, ikke som minister eller hovedforhandler for en større gennemført reform.;Ikke ministeransvar
+6;3;2020;Klimaloven;Bindende klimalov med mål om 70 pct. reduktion i 2030 og klimaneutralitet senest i 2050.;Statsminister / regeringsleder
+7;3;2020;Ret til tidlig pension;Arne-pensionen: ret til tidligere pension for personer med lange og hårde arbejdsliv.;Statsminister / regeringsleder
+8;3;2023;Store bededag som almindelig arbejdsdag;Afskaffelse af store bededag som helligdag fra 2024.;Statsminister / regeringsleder
+9;3;2023-2024;Forsvarsforlig og Ukraine-støtte;Markant oprustning af dansk forsvar og store økonomiske rammer til støtte for Ukraine.;Statsminister / regeringsleder
+10;4;2023;Reform af personskat;Skatteaftale med skattelettelser på arbejde, blandt andet beskæftigelsesfradrag og ændret topskattemodel.;Partileder for aftaleparti
+11;4;2024;Iværksætterpakken;Aftale om bedre adgang til kapital og lempelser for iværksættere, herunder ophævelse af iværksætterskatten.;Partileder for aftaleparti
+12;5;2019-2021;Minimumsnormeringer i daginstitutioner;Lovbundne minimumsnormeringer, som SF pressede hårdt på for i finanslovs- og regeringsforhandlinger.;Partileder for støtte-/aftaleparti
+13;5;2020;Ret til tidlig pension;Arne-pensionen blev indført med SF som aftaleparti.;Partileder for aftaleparti
+14;5;2024;Grøn trepart / landbrug og klima;Aftale om grøn omstilling af landbruget og mere natur, herunder CO2-afgift på landbruget.;Partileder for aftaleparti
+15;6;NULL;Ingen større indført politik med personligt hovedansvar fundet;"Har ikke haft ministerpost; hans rolle har primært været som oppositionspolitiker og senere partistifter.";Ikke ministeransvar
+16;7;2025;Ny gymnasieuddannelse / EPX;DF var aftaleparti i aftalen om ny erhvervs- og professionsrettet gymnasieuddannelse.;Partileder for aftaleparti
+17;8;NULL;Ikke relevant for dansk lovgivning;Amerikansk mediepersonlighed, ikke dansk folketingspolitiker eller lovgiver.;Ingen lovgivende rolle
+18;9;2019;Mad- og måltidsstrategi i København;Københavns strategi for sundere, grønnere og mere klimavenlige offentlige måltider.;Kultur- og fritidsborgmester i København
+19;10;2021;Hjemrejseloven;Samlet lov om hjemrejse for udlændinge uden lovligt ophold.;Udlændinge- og integrationsminister
+20;10;2024;Folkeskolens kvalitetsprogram;Reform med kortere skoledage, færre prøver, juniormesterlære og mere lokal frihed.;Børne- og undervisningsminister
+21;10;2025;Ny gymnasieuddannelse / EPX;Aftale om ny erhvervs- og professionsrettet gymnasieuddannelse med opstart frem mod 2030.;Børne- og undervisningsminister
+22;11;2013;Danmark uden affald;Ressourcestrategi med mål om mere genanvendelse og mindre forbrænding af affald.;Miljøminister
+23;11;2013-2014;WEEE- og affaldsregulering;Lovgivning om elektrisk og elektronisk affald, digital indberetning og affaldshåndtering.;Miljøminister
+24;12;NULL;Ingen større indført politik med personligt hovedansvar fundet;Har været oppositionspolitiker og partistifter, men ikke minister eller hovedforhandler bag større gennemført reform.;Ikke ministeransvar
+25;13;2023;Forsvarsforlig 2024-2033;10-årigt forsvarsforlig med historisk løft af dansk forsvar og sigte mod NATO-målet.;Forsvarsminister
+26;13;2024;Første delaftale under forsvarsforliget;Udmøntning af ca. 16 mia. kr. til materiel og personel i Forsvaret.;Forsvarsminister
+27;13;2023;Reform af personskat;Skatteaftale med skattelettelser på arbejde og ændringer i beskæftigelsesfradrag/topskattemodel.;Partileder for regeringsparti
+28;14;NULL;Ingen større indført politik med personligt hovedansvar fundet;Nyere folketingsprofil uden ministerpost eller tydelig hovedrolle i større gennemført reform.;Ikke ministeransvar
+29;15;2021;Coronapas og genåbningsaftaler;Central rolle i coronapas, vaccination og gradvis udfasning af restriktioner under COVID-19.;Sundhedsminister
+30;15;2021;Gratis COVID-19-vaccination;Bekendtgørelser og organisering af gratis vaccination mod COVID-19.;Sundhedsminister
+31;15;2024;National PFAS-handlingsplan;Første nationale handlingsplan mod PFAS med bl.a. forbud og oprydningsindsatser.;Miljøminister
+32;15;2025;Drikkevandsfonden / grundvandsbeskyttelse;Aftale om midler til målrettet beskyttelse af drikkevand og grundvand.;Miljøminister
+33;16;2015;Integrationsydelsen;Lavere ydelse til nytilkomne udlændinge med formål om at mindske asyltilstrømning og øge selvforsørgelse.;Udlændinge-, integrations- og boligminister
+34;16;2016;Smykkeloven;Udlændingestramning der bl.a. gav mulighed for beslaglæggelse af værdier fra asylansøgere til betaling for ophold.;Udlændinge-, integrations- og boligminister
+35;16;2018;Skærpede krav til kontanthjælp for udlændinge;Krav om ophold og beskæftigelse før overgang fra integrationsydelse til kontanthjælp.;Udlændinge- og integrationsminister
+36;16;2019;Paradigmeskiftet i udlændingepolitikken;Reformpakke der flyttede fokus fra permanent integration til midlertidigt ophold og hjemrejse.;Udlændinge- og integrationsminister
+37;17;2024;Iværksætterpakken;Aftale om bedre vilkår for iværksættere og adgang til risikovillig kapital.;Partileder/erhvervsprofil for aftaleparti
+38;17;2024;Grøn trepart / landbrug og klima;Konservative var aftaleparti i grøn omstilling af landbrug og naturindsats.;Partileder for aftaleparti
+39;18;NULL;Ingen større indført politik med personligt hovedansvar fundet;Har haft væsentlig rolle som partistifter og oppositionspolitiker, men ikke ministeransvar for større gennemført reform.;Ikke ministeransvar
+40;19;2012;Energiaftalen 2012-2020;Bred energiaftale med mål om mere vedvarende energi, lavere energiforbrug og næsten halvdelen af elforbruget fra vind i 2020.;Klima-, energi- og bygningsminister
+41;19;2014;Klimalov og Klimarådet;Lovramme for Danmarks klimapolitik og oprettelse af Klimarådet.;Klima-, energi- og bygningsminister
+42;19;2012-2013;Energirenovering af bygninger;Arbejde med strategi og netværk for energirenovering af den danske bygningsmasse.;Klima-, energi- og bygningsminister
+43;20;2020;Ret til tidlig pension;Arne-pensionen for personer med lange og hårde arbejdsliv.;Beskæftigelsesminister
+44;20;2022;Arbejdsskadereform;Aftale om højere erstatninger, kortere sagsbehandling og forenkling i arbejdsskadesystemet.;Beskæftigelsesminister
+45;20;2023;Forbud mod utilbørlig behandling af religiøse skrifter;Den såkaldte koranlov, der kriminaliserer utilbørlig behandling af skrifter med væsentlig religiøs betydning.;Justitsminister
+46;20;2024;Bandepakke IV;Stramninger mod bandekriminalitet, bl.a. udvidelse af dobbeltstraf til visse økonomiske bandeforbrydelser.;Justitsminister
+47;21;2023;Medieforlig;Bredt medieforlig med ændringer i mediestøtten og rammer for dansk mediebranche.;Kulturminister
+48;21;2024;Kulturbidragsloven;Streaming-/on demand-tjenester skal betale kulturbidrag til dansk film- og tv-produktion.;Kulturminister
+49;21;2024;Museumsreformen;Reform af statsanerkendte museer med permanent løft og ændret tilskudssystem.;Kulturminister
