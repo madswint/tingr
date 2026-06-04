@@ -1,13 +1,15 @@
 # tingr
 
-python3 -m venv venv
-source venv/bin/activate
+![Tingr screenshot](static/readme_ss.png)
+
+## SETUP: (python3 or py)
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 
-1. Create *'tingr'* database on system
+1. Create *'tingr'* database on system (linux)
 
 sudo -u postgres psql -c "CREATE DATABASE tingr;"
-
 
 2. Create *user credentials*
 
@@ -19,5 +21,20 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE tingr TO username;"
 
 sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
 
-
 4. Update *database.py* with your credentials
+
+5. *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3
+
+
+## USE:
+
+Pick your starting politician. 
+
+Next page presents politicians that relate politically to this person. 
+
+"Swipe" by liking or rejecting a politician.
+
+Each like adds a politician to your bag (max of 6, can be removed and replaced).
+
+At 6/6 politicians you have the option of seeing your most related party and other stats. Same option is given when no more politicians are left to swipe.
+
