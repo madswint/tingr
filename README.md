@@ -28,6 +28,7 @@ sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
 ## USE:
 
 *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3.
+
 Server opens on http://127.0.0.1:8000/
 
 Pick your starting politician. 
