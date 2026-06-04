@@ -44,6 +44,9 @@
         {% endif %}
         {% endfor %}
         </div>
+        {% if bag|length >= 6 %}
+        <a href="/results" class="bag-results-btn">Se resultater</a>
+        {% endif %}
     </div>
 
     {% if politician %}
@@ -161,6 +164,7 @@
     {% else %}
     <div class="done">
         <h2>Du har swipet alle politiker!</h2>
+        <a href="/results" class="btn-results">Se dit hold</a>
         <a href="/reset">Start forfra</a>
     </div>
     {% endif %}

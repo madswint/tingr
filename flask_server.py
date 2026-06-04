@@ -59,6 +59,25 @@ def bag_remove():
     return redirect("/swipe")
 
 
+@app.route("/results")
+def results():
+    stats = main.build_end_stats()
+    return render_template("results.html",
+        bag=stats["bag"],
+        top_party=stats["top_party"],
+        party_color=stats["party_color"],
+        party_logo=stats["party_logo"],
+        swiped_right=stats["swiped_right"],
+        swiped_left=stats["swiped_left"],
+        total_swiped=stats["total_swiped"],
+        like_rate=stats["like_rate"],
+        avg_attendance=stats["avg_attendance"],
+        scandals_total=stats["scandals_total"],
+        most_scandalous=stats["most_scandalous"],
+        axis_fordeling=stats["axis_fordeling"],
+        axis_vaerdi=stats["axis_vaerdi"],
+    )
+
 @app.route("/reset")
 def reset():
     main.reset()
