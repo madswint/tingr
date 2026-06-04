@@ -63,6 +63,16 @@ CREATE TABLE IF NOT EXISTS citat (
     PRIMARY KEY (citatid)
 );
 
+CREATE TABLE IF NOT EXISTS tiltag (
+    tiltagid INTEGER,
+    politikerid INTEGER REFERENCES politiker(politikerid),
+    periode TEXT,
+    tiltag TEXT,
+    beskrivelse  TEXT,
+    rolle TEXT,
+    PRIMARY KEY (tiltagid)
+);
+
 CREATE OR REPLACE VIEW politikerscore AS 
     with politikermaerkesag as (
         select pol.politikerid, pol.navn, pol.partiid, avg(sag.fordelingsscore) as gnsfordelingscore, avg(sag.vaerdiscore) as gnsvaerdiscore
