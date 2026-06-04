@@ -68,7 +68,7 @@ def init_db():
              ["partiid", "parti", "oprettet"])
 
     load_csv(cur, "politiker", "politiker.csv",
-             ["politikerid", "navn", "fodselsdato", "partiid", "stilling", "uddannelse"])
+             ["politikerid", "navn", "fodselsdato", "partiid", "stilling", "uddannelse", "deltagelsesprocent"])
 
     load_csv(cur, "maerkesag", "maerkesag.csv",
              ["maerkesagid", "maerkesag", "fordelingsscore", "vaerdiscore"])

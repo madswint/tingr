@@ -26,7 +26,7 @@ PARTY_META = {
 # For simplicity we store politicians data in a class in order to easily render in html
 class Politician:
     def __init__(self, id, name, party, politics_score, born, position, education,
-                 photo_urls=None, quotes=None, scandals=None, issues=None):
+                 photo_urls=None, quotes=None, scandals=None, issues=None, deltagelsesprocent=None):
         self.id = id
         self.name = name
         self.party = party
@@ -38,6 +38,7 @@ class Politician:
         self.quotes = quotes or []
         self.scandals = scandals or []
         self.issues = issues or []
+        self.deltagelsesprocent = deltagelsesprocent
         meta = PARTY_META.get(party, {})
         logo = meta.get("logo")
         self.party_color = meta.get("color", "#888888") # løsgænger per. default
@@ -79,7 +80,7 @@ def reset():
     bag_politics_score = (0.0, 0.0)
         
 def build_politician(row, cur) -> Politician:
-    _pol_id, _name, _party, _born, _position, _education = row
+    _pol_id, _name, _party, _born, _position, _education, _deltagelsesprocent = row
 
     cur.execute("select citat from citat where politikerid = %s", (_pol_id,))
     _quotes = [r[0] for r in cur.fetchall()]
@@ -117,6 +118,7 @@ def build_politician(row, cur) -> Politician:
         quotes=_quotes,
         scandals=_scandals,
         issues=_issues,
+        deltagelsesprocent=_deltagelsesprocent
     )
 
 
@@ -125,7 +127,7 @@ def load_all_politicians():
     conn = db_connection()
     cur = conn.cursor()
     cur.execute("""
-        select p.politikerid, p.navn, pa.parti, p.fodselsdato, p.stilling, p.uddannelse
+        select p.politikerid, p.navn, pa.parti, p.fodselsdato, p.stilling, p.uddannelse, p.deltagelsesprocent
         from politiker p
         join parti pa on p.partiid = pa.partiid
     """)

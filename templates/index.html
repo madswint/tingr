@@ -66,7 +66,8 @@
             <div class="meta">
                 {% if politician.born %}Født: {{ politician.born }}<br>{% endif %}
                 {% if politician.position %}{{ politician.position }}<br>{% endif %}
-                {% if politician.education %}{{ politician.education }}{% endif %}
+                {% if politician.education %}{{ politician.education }}<br>{% endif %}
+                 {% if politician.deltagelsesprocent is not none %} Fremmøde ved afsteminger: {{ "%.1f"|format(politician.deltagelsesprocent) }}% {% endif %}
             </div>
 
             {% if politician.quotes %}
