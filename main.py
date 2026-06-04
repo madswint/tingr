@@ -71,6 +71,13 @@ def bag_remove(politician: Politician):
         bag_update_score()
     
 
+def euclidean_distance(score1, score2):
+    x1, y1 = score1
+    x2, y2 = score2
+
+    return ((x1 - x2)**2 + (y1 - y2) ** 2)**0.5
+
+
 def bag_update_score():
     global bag_politics_score
     bag_politics_score = (
@@ -153,11 +160,17 @@ def get_random_politicians(n: int) -> list[Politician]:
 
 def get_next_politician() -> Politician | None:
     swiped_ids = {p.id for p in swiped}
-    for p in politicians:
-        if p.id not in swiped_ids:
-            return p
-    return None
 
+    candidates = [
+        p for p in politicians
+        if p.id not in swiped_ids
+    ]
+
+    if len(candidates) == 0:
+        return None
+
+    return min(candidates, key=lambda p: euclidean_distance(bag_politics_score, p.politics_score)
+    )
 
 def fetch_news(name: str) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=180)
