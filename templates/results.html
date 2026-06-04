@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!-- AI Made HTML -->
+<!DOCTYPE html>  
 <html lang="da">
 <head>
     <meta charset="UTF-8">
@@ -20,10 +21,10 @@
             <div class="axis-label axis-label--right">Værdipolitik</div>
             <div class="axis-line axis-line--h"></div>
             <div class="axis-line axis-line--v"></div>
-            <div class="axis-dot" id="axis-dot"
-                data-x="{{ axis_fordeling }}"
-                data-y="{{ axis_vaerdi }}"
-                style="background: {{ party_color }}">
+            <div class="axis-dot" style="
+                left: {{ (50 + axis_fordeling * 45)|round(1) }}%;
+                top: {{ (50 - axis_vaerdi * 45)|round(1) }}%;
+                background: {{ party_color }};">
             </div>
         </div>
 
@@ -85,20 +86,9 @@
 
 
         <div class="results-actions">
-            <a href="/results" class="btn-results">Opdater</a>
             <a href="/reset" class="btn-reset">Start forfra</a>
         </div>
 
     </div>
-    <script>
-        const dot = document.getElementById('axis-dot');
-        if (dot) {
-            const x = parseFloat(dot.dataset.x); // -1 to +1, fordeling (left/right)
-            const y = parseFloat(dot.dataset.y); // -1 to +1, vaerdi (progressive/conservative)
-            // map -1..+1 to 5%..95% within the chart
-            dot.style.left = (50 + x * 45) + '%';
-            dot.style.top  = (50 - y * 45) + '%'; // invert y: positive = up (conservative)
-        }
-    </script>
 </body>
 </html>

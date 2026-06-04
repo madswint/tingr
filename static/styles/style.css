@@ -1,4 +1,5 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* AI made CSS */
+* { box-sizing: border-box; margin: 0; padding: 0; } 
 
 body {
     font-family: sans-serif;
@@ -348,8 +349,8 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 }
 
 .bag-slot {
-    width: 70px;
-    height: 84px;
+    width: 90px;
+    height: 108px;
     border-radius: 10px;
     border: 2px dashed #e0e0e0;
     overflow: hidden;
@@ -385,14 +386,14 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 
 .bag-photo {
     width: 100%;
-    height: 58px;
+    height: 76px;
     object-fit: cover;
     object-position: top;
 }
 
 .bag-photo-empty {
     width: 100%;
-    height: 58px;
+    height: 76px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -415,14 +416,14 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: rel
 }
 
 .bag-name {
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     color: #888;
     text-align: center;
     padding: 0 2px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 66px;
+    max-width: 86px;
 }
 
 /* Starter overlay */

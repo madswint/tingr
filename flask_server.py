@@ -29,7 +29,9 @@ def choose():
 @app.route("/swipe")
 def swipe_page():
     politician = main.get_next_politician()
-    news = main.fetch_news(politician.name) if politician else []
+    if politician is None:
+        return redirect("/results")
+    news = main.fetch_news(politician.name)
     return render_template("index.html", politician=politician, bag=main.bag, news=news)
 
 

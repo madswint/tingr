@@ -82,6 +82,9 @@ def init_db():
     load_csv(cur, "tidlparti", "tidlparti.csv",
              ["tidlpartiid", "partiid", "politikerid"])
 
+    load_csv(cur, "tiltag", "tiltag.csv",
+             ["tiltagid", "politikerid", "tiltag"])
+
     load_csv(cur, "maerkesagparti", "maerkesagparti.csv",
              ["maerkesagpartiid", "maerkesagid", "partiid"])
 
