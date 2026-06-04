@@ -53,3 +53,22 @@ At 6/6 politicians you have the option of seeing your most related party and oth
 ## ER Diagram
 
 ![ER diagram](ER_diagram_tingr.jpg)
+
+
+## AI Declaration
+
+1) Formål (hvad har du/I brugt værktøjet til)
+   
+Generativ AI er blevet brugt til de manuelle og tidstunge dele af opgaven, hvilket vil sige data genereringen og HTML koden, da disse to områder ikke er formålet med kurset. 
+Dataindsamlingen med GenAI foregik ved at vi valgte hvilke politikkere og partier vi ville have data på, hvorefter vi kom med eksemmpler på mærkesager, citater, skandeler etc. og bad Gen AI om at søge på nettet for lignende eksempler på vores  andre politikkere og partier. Her blev AI brugt da det er en meget omfattende process at gøre manuelt, og ikke lærigt som datalog. 
+HTML, CSS koden blev lavet med gen AI, og i mange tilfælde gjort pænere gennem AI, da det primære formål med faget ikke er frontend html produktion. 
+
+Al python/flask/SQL interaktionn og database design er lavet af os med ingen brug af AI. AI har få gange rådgivet til python libraries der kunne bruges til f.eks. at få date-time, og dette er markeret med comments heri.
+
+2) Arbejdsfase (hvornår i arbejdsprocessen har du/I brugt GAI)
+
+Dataindsamling og data display.
+
+3) Hvad gjorde du/I med outputtet (herunder også, om du/I har redigeret outputtet og arbejdet videre med det)
+
+Data’et er blevet gennemarbejdet og valideret, samt redigeret så det kunne indsættes i databasen. HTML koden er indsat i de relevante templates, så det kunne virke med den egenkodedet backend. 
