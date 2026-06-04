@@ -1,11 +1,31 @@
 import os
+import re
+import requests
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from database import db_connection
 
- # For simpelhedens skyld gemmer vi det i en klasse her, og viser direkte i html via denne.
- # En anden mulighed var at populærer databasen med spillerens valg så det kan genbruges til næste session,
- # men det tænker vi er unødvendigt
+
+PARTY_META = {
+    "Moderaterne":                  {"color": "#692582", "logo": "moderaterne.png"},
+    "Venstre":                      {"color": "#003d80", "logo": "venstre.png"},
+    "SF":                           {"color": "#F0025A", "logo": "socialistisk_folkeparti.png"},
+    "Socialdemokratiet":            {"color": "#E3000F", "logo": "socialdemokratiet.png"},
+    "Dansk Folkeparti":             {"color": "#FFDD00", "logo": "dansk_folkeparti.png"},
+    "Enhedslisten":                 {"color": "#EE2020", "logo": "enhedslisten.png"},
+    "Borgernes Parti":              {"color": "#444444", "logo": "borgernes_parti.png"},
+    "Liberal Alliance":             {"color": "#00B2A9", "logo": "liberal_alliance.png"},
+    "Alternativet":                 {"color": "#00C050", "logo": "alternativet.png"},
+    "Radikale Venstre":             {"color": "#9B1F82", "logo": "radikale.png"},
+    "Det Konservative Folkeparti":  {"color": "#00A04B", "logo": "konservative.png"},
+    "Frie Grønne":                  {"color": "#4CAF50", "logo": "frie_grønne.png"},
+    "Danmarksdemokraterne":         {"color": "#2E5FA3", "logo": "dd.png"},
+    "Løsgænger":                    {"color": "#888888", "logo": "ufg.png"},
+}
+
+# For simplicity we store politicians data in a class in order to easily render in html
 class Politician:
-    def __init__(self, id, name, party, politics_score, born, position, education, 
+    def __init__(self, id, name, party, politics_score, born, position, education,
                  photo_urls=None, quotes=None, scandals=None, issues=None):
         self.id = id
         self.name = name
@@ -18,11 +38,15 @@ class Politician:
         self.quotes = quotes or []
         self.scandals = scandals or []
         self.issues = issues or []
+        meta = PARTY_META.get(party, {})
+        logo = meta.get("logo")
+        self.party_color = meta.get("color", "#888888") # løsgænger per. default
+        self.party_logo = f"/static/party_logos/{logo}" if logo else None
 
 
-# Fordi vi ved at datasættet aldrig bliver større og det er et lille datasæt, så puller vi ved startup og gemmer i memory
-# fremfor at SQL query hver gang vi skal e.g. bruge en random politiker, specifik politiker osv. 
-# dette er simplere og giver bedre mening her
+# since the dataset is static and manually given (and its a small dataset), we only pull at startup and save it in memory
+# instead of using a SQL query every time we need a random politcian, specific politcian etc.
+# this is simpler and makes better sense to us given the scale
 politicians: list[Politician] = []
 
 
@@ -124,3 +148,29 @@ def get_next_politician() -> Politician | None:
         if p.id not in swiped_ids:
             return p
     return None
+
+
+def fetch_news(name: str) -> list[dict]:
+    cutoff = datetime.now(timezone.utc) - timedelta(days=180)
+    query = name.replace(' ', '+') + "+site:tv2.dk+OR+site:dr.dk+OR+site:berlingske.dk+OR+site:politiken.dk+OR+site:ekstrabladet.dk+OR+site:bt.dk" 
+    url = f"https://news.google.com/rss/search?q={query}"  # this was gotten from appending the query to to the base google query https://news.google.com/rss/search?q=
+                                                           # however, for us it adds hl=no&gl=NO&ceid=NO:no to the query, and we cant force location so we get primarily norwegian articles it seems?
+    def reg(pattern, text):     # for readability
+        m = re.search(pattern, text, re.DOTALL) #DOTALL was needed to hit contents that are on several lines..
+        return m.group(1) if m else ""  # just return the first result incase we have more
+
+    res = requests.get(url, timeout=5)
+    articles = []
+    for item in re.findall("<item>(.*?)</item>", res.text, re.DOTALL): # ? to stop at the first occurence
+        title = reg("<title>(.*?)</title>", item)      # -"-...
+        link = reg("<link>(.*?)</link>", item)
+        source = reg("<source[^>]*>(.*?)</source>", item)  # every but '>', zero or more of that, since source is followed by ="url".
+        description = reg("<description>(.*?)</description>", item)
+        pub_date = reg("<pubDate>(.*?)</pubDate>", item)
+        published = parsedate_to_datetime(pub_date) if pub_date else None   # <-- AI help to filter recent 
+        if published and published < cutoff:
+            continue
+        if re.search(name, title, re.IGNORECASE) or re.search(name, description, re.IGNORECASE): # Match on aA (not case sensitive)
+            articles.append({"title": title, "url": link, "source": source})
+    return articles[:5]  # seem to mostly return results from Politiken.dk, we think its because they also publish articles in english and perhaos this gets picked up better by google?
+                        # removing Politiken.dk we get primarily dr.dk, but also rare to have articles.

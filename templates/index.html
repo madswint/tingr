@@ -6,7 +6,16 @@
     <title>Tingr</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
-<body>
+<body data-party-color="{{ politician.party_color if politician else '' }}">
+{% if politician %}
+    <div class="banner">
+        {% if politician.party_logo %}
+        <img class="banner-logo" src="{{ politician.party_logo }}" alt="{{ politician.party }}">
+        {% else %}
+        <span class="banner-text">{{ politician.party }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
     <h1>Tingr</h1>
     <p class="subtitle">Byg dit hold!</p>
 
@@ -81,6 +90,19 @@
                 </ul>
             </div>
             {% endif %}
+
+            {% if news %}
+            <div class="section">
+                <h3>Nyheder</h3>
+                <ul class="news-list">
+                    {% for article in news %}
+                    <li><a href="{{ article.url }}" target="_blank" rel="noopener">{{ article.title }}</a>
+                    {% if article.source %}<span class="news-source"> — {{ article.source }}</span>{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
 
         <div class="card-bottom">
@@ -121,6 +143,10 @@
     </div>
     {% endif %}
     <script>
+        const color = document.body.dataset.partyColor || '#888888';
+        document.body.style.setProperty('--party-color', color);
+        document.body.style.backgroundColor = color + '18';
+
         const container = document.getElementById('card-photos');
         if (container) {
             const photos = JSON.parse(container.dataset.photos);

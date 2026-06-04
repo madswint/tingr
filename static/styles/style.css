@@ -12,10 +12,12 @@ body {
     padding: 2rem 1rem;
 }
 
-h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; }
-.subtitle { color: #aaa; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 2rem; }
+h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; position: relative; z-index: 1; }
+.subtitle { color: #aaa; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 2rem; position: relative; z-index: 1; }
 
 .card {
+    position: relative;
+    z-index: 1;
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.12);
@@ -39,6 +41,69 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; }
     object-fit: cover;
     object-position: top;
     display: block;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 40px;
+    width: 110px;
+    min-height: 340px;
+    background: linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--party-color) 90%, white 10%) 0%,
+        var(--party-color) 40%,
+        color-mix(in srgb, var(--party-color) 75%, black 25%) 100%
+    );
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    z-index: 0;
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.04) 0px,
+        rgba(255,255,255,0.04) 2px,
+        transparent 2px,
+        transparent 18px
+    );
+    pointer-events: none;
+}
+
+.banner-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-top: 8px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.banner-text {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 0 10px;
+    line-height: 1.5;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    margin-top: 16px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .photo-arrow {
@@ -361,3 +426,8 @@ h1 { margin-bottom: 0.25rem; font-size: 2rem; letter-spacing: 2px; }
     border-radius: 8px;
     text-decoration: none;
 }
+
+.news-list { padding-left: 1rem; }
+.news-list li { margin-bottom: 0.4rem; font-size: 0.85rem; }
+.news-list a { color: #333; }
+.news-source { color: #888; font-size: 0.78rem; }
