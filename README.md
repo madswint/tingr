@@ -5,28 +5,28 @@
 ## SETUP: (python3 or py)
 
 ### Python environment (if wanted)
-1. python3 -m venv .venv
+```python3 -m venv .venv```
 
-2. source .venv/bin/activate
+```source .venv/bin/activate```
 
-3. pip install -r requirements.txt
+```pip install -r requirements.txt```
 
-### Database setup
+### Database setup (linux)
 These are the steps we use on our machines.
 
-1. Create *'tingr'* database on system (linux)
+1. Create *'tingr'* database on system 
 
-sudo -u postgres psql -c "CREATE DATABASE tingr;"
+```sudo -u postgres psql -c "CREATE DATABASE tingr;"```
 
 2. Create *user credentials*
 
-sudo -u postgres psql -c "CREATE USER username WITH PASSWORD 'yourpassword';"
+```sudo -u postgres psql -c "CREATE USER username WITH PASSWORD 'yourpassword';"```
 
 3. *Set user privileges* on the tingr database
 
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE tingr TO username;"
+```sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE tingr TO username;"```
 
-sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
+```sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"```
 
 4. Update *database.py* with your credentials
 
@@ -35,7 +35,7 @@ sudo -u postgres psql -d tingr -c "GRANT ALL ON SCHEMA public TO username;"
 ### Run server
 *Run "run.sh"*, or run "flask_server.py" manually with your own python path if it isn't python3.
 
-Server opens on http://127.0.0.1:8000/
+Server opens on ```http://127.0.0.1:8000/```
 
 ### How to play
 
