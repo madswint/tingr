@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!-- AI Made HTML -->
+<!DOCTYPE html> 
 <html lang="da">
 <head>
     <meta charset="UTF-8">
@@ -144,7 +145,15 @@
             </div>
             <div class="card-bottom-col">
                 <h3>Faktisk indført politik</h3>
-                <span class="placeholder">Kommer snart</span>
+                {% if politician.established %}
+                <ul>
+                    {% for tiltag in politician.established %}
+                    <li>{{ tiltag }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <span class="placeholder">Ingen data</span>
+                {% endif %}
             </div>
         </div>
 
@@ -161,12 +170,6 @@
     </div>
     </div>
 
-    {% else %}
-    <div class="done">
-        <h2>Du har swipet alle politiker!</h2>
-        <a href="/results" class="btn-results">Se dit hold</a>
-        <a href="/reset">Start forfra</a>
-    </div>
     {% endif %}
     <script>
         const color = document.body.dataset.partyColor || '#888888';

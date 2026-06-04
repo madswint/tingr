@@ -7,7 +7,7 @@ from database import db_connection
 from math import dist 
 
 conn = db_connection()
-cur = conn.cursor()
+cur = conn.cursor() ## Needs to be closed again on exit.. How to do ~Main() equivalant in flask??
 
 PARTY_META = {
     1: {"color": "#692582", "logo": "moderaterne.png"},
@@ -35,7 +35,7 @@ def party_name_to_id(name):
 # For simplicity we store politicians data in a class in order to easily render in html
 class Politician:
     def __init__(self, id, name, party, politics_score, born, position, education,
-                 photo_urls=None, quotes=None, scandals=None, issues=None, deltagelsesprocent=None):
+                 photo_urls=None, quotes=None, scandals=None, issues=None, established=None, deltagelsesprocent=None):
         self.id = id
         self.name = name
         self.party = party
@@ -47,6 +47,7 @@ class Politician:
         self.quotes = quotes or []
         self.scandals = scandals or []
         self.issues = issues or []
+        self.established = established or []
         self.deltagelsesprocent = deltagelsesprocent
         meta = PARTY_META.get(party_name_to_id(party), {})
         logo = meta.get("logo")
@@ -69,8 +70,6 @@ def bag_add(politician):
     if len(bag) < 6 and politician not in bag:
         bag.append(politician)
         bag_update_score()
-    else:
-        print("GIV MULIGHED FOR ERSTATTELSE AF POLITIKER VED BRUG AF REGEX?")
 
 def bag_remove(politician: Politician):
     if politician not in bag:
@@ -78,13 +77,6 @@ def bag_remove(politician: Politician):
     else:
         bag.remove(politician)
         bag_update_score()
-    
-
-def euclidean_distance(score1, score2):
-    x1, y1 = score1
-    x2, y2 = score2
-
-    return ((x1 - x2)**2 + (y1 - y2) ** 2)**0.5
 
 
 def bag_update_score():
@@ -102,7 +94,7 @@ def reset():
     swiped = []
     bag_politics_score = (0.0, 0.0)
         
-def build_politician(row, cur):
+def build_politician(row):
     _pol_id, _name, _party, _born, _position, _education, _deltagelsesprocent = row
 
     cur.execute("select citat from citat where politikerid = %s", (_pol_id,))
@@ -118,12 +110,17 @@ def build_politician(row, cur):
     """, (_pol_id,))
     _issues = [r[0] for r in cur.fetchall()]
 
+    cur.execute("""select tiltag 
+                from Tiltag 
+                where politikerid = %s""", (_pol_id,))
+    _established = [r[0] for r in cur.fetchall()]
+
     cur.execute("select ps.samletfordelingsscore,ps.samletvaerdiscore from politikerscore ps where ps.politikerid = %s", (_pol_id,))
     _politics_score = cur.fetchone() or (0.0, 0.0)
 
     _photo_urls = []
     photo_dir = f"static/politicians/{_pol_id}"
-    if os.path.isdir(photo_dir):
+    if os.path.isdir(photo_dir):                # <- AI help
         _photo_urls = [
             f"/static/politicians/{_pol_id}/{f}"
             for f in sorted(os.listdir(photo_dir))
@@ -141,6 +138,7 @@ def build_politician(row, cur):
         quotes=_quotes,
         scandals=_scandals,
         issues=_issues,
+        established=_established,
         deltagelsesprocent=_deltagelsesprocent
     )
 
@@ -153,9 +151,7 @@ def load_all_politicians():
         join parti pa on p.partiid = pa.partiid
     """)
     rows = cur.fetchall()
-    politicians = [build_politician(row, cur) for row in rows]
-    cur.close()
-    conn.close()
+    politicians = [build_politician(row) for row in rows]
 
 
 def get_random_politicians(n):
@@ -168,18 +164,15 @@ def get_random_politicians(n):
 def get_next_politician():
     swiped_ids = {p.id for p in swiped}
 
-    candidates = [
-        p for p in politicians
-        if p.id not in swiped_ids
-    ]
+    candidates = [p for p in politicians if p.id not in swiped_ids]
 
     if len(candidates) == 0:
         return None
 
-    return min(candidates, key=lambda p: euclidean_distance(bag_politics_score, p.politics_score)
+    return min(candidates, key=lambda p: dist(bag_politics_score, p.politics_score)
     )
 
-def build_end_stats(cur):
+def build_end_stats():
     liked = bag
     swiped_all = swiped
 
@@ -198,34 +191,30 @@ def build_end_stats(cur):
     most_scandalous = max(liked, key=lambda p: len(p.scandals)) if liked else None
 
     
+    cur.execute("""
+        select pa.parti, pas.gnsfordelingscore, pas.gnsvaerdiscore
+        from partiscore pas
+        join parti pa on pa.partiid = pas.partiid
+    """)
+    party_scores = cur.fetchall()
 
-    # get party scores and calculate closest distance from bag score to party scores
-    list_party_id
 
-    cur.execute("select parti.partiid from parti")
-    list_party_id = cur.fetchall()
+    closest_party = None
+    closest_dist = float('inf')
+    for name, f_score, v_score in party_scores:
+        if f_score is None or v_score is None:
+            continue
+        d = dist(bag_politics_score, (f_score, v_score))
+        if d < closest_dist:
+            closest_dist = d
+            closest_party = name
 
-    list_party_scores
-    for party_id in list_party_id:
-        cur.execute("select pas.gnsfordelingsscore, pas.gnsvaerdiscore from partiscore pas where pas.partiid = %s", (party_id,))
-        list_party_scores = party_id + cur.fetchone()
-    
-
-    closest_party_id
-    closest_dist
-    for score in list_party_scores:
-        cur_dist = dist(bag_politics_score, score)
-        if closest_dist > cur_dist:
-            closest_dist = cur_dist
-            closest_party_id = party_id
-#
-
-    party_color = PARTY_META.get(closest_party_id, {}).get("color", "#888888")
-    party_logo = PARTY_META.get(closest_party_id, {}).get("logo")
+    party_color = PARTY_META.get(party_name_to_id(closest_party), {}).get("color", "#888888")
+    party_logo = PARTY_META.get(party_name_to_id(closest_party), {}).get("logo")
 
     return {
         "bag": liked,
-        "top_party": closest_party_id,
+        "top_party": closest_party,
         "party_color": party_color,
         "party_logo": f"/static/party_logos/{party_logo}" if party_logo else None,
         "swiped_right": swiped_right_count,
@@ -238,6 +227,7 @@ def build_end_stats(cur):
         "axis_fordeling": round(bag_politics_score[0], 2),
         "axis_vaerdi": round(bag_politics_score[1], 2),
     }
+    
 
 
 def fetch_news(name):
